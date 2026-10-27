@@ -1,0 +1,24 @@
+{
+  "name": "hitodama-oss",
+  "version": "1.0.0",
+  "description": "Open-source, local-first ambient AI desktop companion for Windows",
+  "main": "main.js",
+  "scripts": {
+    "start": "electron ."
+  },
+  "keywords": [
+    "ai",
+    "voice",
+    "desktop",
+    "windows",
+    "dynamic-island"
+  ],
+  "author": "",
+  "license": "MIT",
+  "devDependencies": {
+    "electron": "^40.8.0"
+  },
+  "dependencies": {
+    "loudness": "^0.4.2"
+  }
+}
