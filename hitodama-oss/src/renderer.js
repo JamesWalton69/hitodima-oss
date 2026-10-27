@@ -1,4 +1,4 @@
-// Hitodama · 人魂 (Sakura Edition) Renderer
+// Hitodama · 人魂 (Sakura Edition) Renderer - English UI
 
 // Core DOM Elements
 const island = document.getElementById('dynamic-island');
@@ -93,13 +93,13 @@ function setExpanded(expanded) {
   if (isExpanded) {
     island.classList.add('expanded');
     controlCentre.classList.remove('hidden');
-    statusLabel.textContent = 'コントロールセンター';
+    statusLabel.textContent = 'Control Centre';
     window.hitodama?.setIgnoreMouseEvents(false);
     refreshSystemData();
   } else {
     island.classList.remove('expanded');
     controlCentre.classList.add('hidden');
-    statusLabel.textContent = 'さくら · Awake · Ctrl+Space';
+    statusLabel.textContent = 'Awake · Sakura · Ctrl+Space';
     window.hitodama?.setIgnoreMouseEvents(true, { forward: true });
   }
 }
@@ -179,7 +179,7 @@ async function refreshSystemData() {
     const wifi = await window.hitodama.getWifiInfo();
     if (wifi) {
       wifiSsid.textContent = wifi.ssid;
-      wifiSignal.textContent = wifi.connected ? wifi.signal : '未接続';
+      wifiSignal.textContent = wifi.connected ? wifi.signal : 'Disconnected';
       if (wifi.connected) {
         wifiTile.classList.add('active');
       } else {
@@ -219,11 +219,11 @@ function updateVolIcon(vol) {
 function updateMuteUI() {
   if (isMuted) {
     muteTile.classList.add('active');
-    muteStatus.textContent = '消音中 (Muted)';
+    muteStatus.textContent = 'Muted';
     muteIcon.textContent = '🔇';
   } else {
     muteTile.classList.remove('active');
-    muteStatus.textContent = '再生中 (Active)';
+    muteStatus.textContent = 'Active';
     muteIcon.textContent = '🔊';
   }
   updateVolIcon(currentVolume);
@@ -232,11 +232,11 @@ function updateMuteUI() {
 function updateDarkModeUI() {
   if (isDarkMode) {
     darkModeTile.classList.add('active');
-    darkModeStatus.textContent = 'ダーク (Dark)';
+    darkModeStatus.textContent = 'Dark';
     darkModeIcon.textContent = '🌙';
   } else {
     darkModeTile.classList.remove('active');
-    darkModeStatus.textContent = 'ライト (Light)';
+    darkModeStatus.textContent = 'Light';
     darkModeIcon.textContent = '☀️';
   }
 }
@@ -263,12 +263,12 @@ muteTile.addEventListener('click', async () => {
 // Dark Mode Tile Click
 darkModeTile.addEventListener('click', async () => {
   if (window.hitodama) {
-    darkModeStatus.textContent = '切替中...';
+    darkModeStatus.textContent = 'Switching...';
     const targetState = !isDarkMode;
     await window.hitodama.toggleDarkMode(targetState);
     isDarkMode = targetState;
     updateDarkModeUI();
-    showToast(`Windows テーマ: ${targetState ? 'ダーク' : 'ライト'}に設定`);
+    showToast(`Windows Theme: ${targetState ? 'Dark' : 'Light'}`);
   }
 });
 
@@ -277,18 +277,18 @@ wifiTile.addEventListener('click', () => {
   window.hitodama?.openUrl('ms-settings:network-wifi');
 });
 
-// 5. Wallpaper Gallery & Wallpaper Setting
+// 5. Wallpaper Gallery & Setting
 async function applyWallpaper(fileName) {
   if (window.hitodama) {
-    showToast('🌸 壁紙をデスクトップに適用中...');
+    showToast('🌸 Applying desktop wallpaper...');
     const ok = await window.hitodama.setWallpaper(fileName);
     if (ok) {
       currentWallpaper = fileName;
       localStorage.setItem('hitodama_current_wp', fileName);
       updateWallpaperCardsUI();
-      showToast('✨ 新しい壁紙を設定しました！');
+      showToast('✨ Wallpaper applied to desktop!');
     } else {
-      showToast('壁紙の設定に失敗しました');
+      showToast('Failed to set wallpaper');
     }
   }
 }
@@ -296,14 +296,16 @@ async function applyWallpaper(fileName) {
 function updateWallpaperCardsUI() {
   document.querySelectorAll('.wp-card').forEach((card) => {
     const file = card.getAttribute('data-wp');
-    if (file === currentWallpaper) {
+    const isCurrent = file === currentWallpaper;
+    const btn = card.querySelector('.wp-apply-btn');
+    if (isCurrent) {
       card.classList.add('active-wp');
-      const btn = card.querySelector('.wp-apply-btn');
-      if (btn) btn.textContent = '適用中 ✓';
+      if (btn) btn.textContent = 'Applied ✓';
     } else {
       card.classList.remove('active-wp');
-      const btn = card.querySelector('.wp-apply-btn');
-      if (btn) btn.textContent = '壁紙に設定 🌸';
+      if (btn) {
+        btn.textContent = file === 'wallpaper-lofi.png' ? 'Set Wallpaper 🌙' : 'Set Wallpaper 🌸';
+      }
     }
   });
 }
@@ -330,14 +332,14 @@ function toggleSoulMode() {
     soulMode = 'image';
     soulCanvas.classList.add('hidden');
     soulImg.classList.remove('hidden');
-    toggleSoulModeBtn.textContent = 'シェーダーに変更';
-    showToast('Arena AI 魂アバターに切替');
+    toggleSoulModeBtn.textContent = 'Switch to Shader';
+    showToast('Switched to Arena AI Soul Avatar');
   } else {
     soulMode = 'canvas';
     soulCanvas.classList.remove('hidden');
     soulImg.classList.add('hidden');
-    toggleSoulModeBtn.textContent = 'アバター切替';
-    showToast('さくらの有機炎シェーダーに切替');
+    toggleSoulModeBtn.textContent = 'Switch Avatar';
+    showToast('Switched to Sakura Living Flame');
   }
 }
 soulTrigger.addEventListener('click', toggleSoulMode);
@@ -349,13 +351,13 @@ personalitySelect.addEventListener('change', (e) => {
   currentPersonality = e.target.value;
   localStorage.setItem('hitodama_personality', currentPersonality);
   const labels = {
-    sweet: 'Sweet Sakura (甘えん坊) 🌸',
-    tsundere: 'Tsundere (ツンデレ) 🎀',
-    chad: 'True Chad (頼れる相棒) 🗿',
-    zen: 'Quiet Zen (静寂) 🍵'
+    sweet: 'Sweet Sakura 🌸',
+    tsundere: 'Tsundere 🎀',
+    chad: 'True Chad 🗿',
+    zen: 'Quiet Zen 🍵'
   };
-  personalityVal.textContent = labels[currentPersonality] || 'Sweet Sakura';
-  showToast(`性格を ${labels[currentPersonality]} に設定`);
+  personalityVal.textContent = labels[currentPersonality] || 'Sweet Sakura 🌸';
+  showToast(`Personality set to ${labels[currentPersonality]}`);
 });
 
 // 7. AI Chat & Voice Integration
@@ -368,7 +370,7 @@ aiApikeyInput.value = localStorage.getItem('hitodama_ai_apikey') || '';
     localStorage.setItem('hitodama_ai_endpoint', aiEndpointInput.value.trim());
     localStorage.setItem('hitodama_ai_model', aiModelInput.value.trim());
     localStorage.setItem('hitodama_ai_apikey', aiApikeyInput.value.trim());
-    showToast('AI設定を保存しました');
+    showToast('AI settings saved');
   });
 });
 
@@ -390,8 +392,8 @@ async function askHitodama(promptText) {
   if (!query) return;
 
   flameState = 'thinking';
-  statusLabel.textContent = '思考中... (Thinking)';
-  aiResponseArea.innerHTML = '<p class="placeholder-msg">人魂が考え中... 🌸</p>';
+  statusLabel.textContent = 'Thinking...';
+  aiResponseArea.innerHTML = '<p class="placeholder-msg">Hitodama is thinking... 🌸</p>';
 
   const config = {
     baseURL: aiEndpointInput.value.trim(),
@@ -410,15 +412,15 @@ async function askHitodama(promptText) {
     lastAiResponse = res.text;
     aiResponseArea.textContent = res.text;
     flameState = 'speaking';
-    statusLabel.textContent = '回答準備完了 🌸';
-    // Auto-read aloud if speech is available
+    statusLabel.textContent = 'Response ready 🌸';
+    // Read aloud response
     speakAloud(res.text);
   } else {
-    const errorMsg = res?.error || 'AI応答エラー';
-    lastAiResponse = `[エラー]: ${errorMsg}`;
+    const errorMsg = res?.error || 'AI response error';
+    lastAiResponse = `[Error]: ${errorMsg}`;
     aiResponseArea.innerHTML = `<span style="color: #ff99aa;">${errorMsg}</span>`;
     flameState = 'idle';
-    statusLabel.textContent = 'さくら · Awake · Ctrl+Space';
+    statusLabel.textContent = 'Awake · Sakura · Ctrl+Space';
   }
   aiInput.value = '';
 }
@@ -433,7 +435,7 @@ pasteCursorBtn.addEventListener('click', async () => {
   if (!lastAiResponse) return;
   setExpanded(false);
   await window.hitodama?.pasteTextAtCursor(lastAiResponse);
-  showToast('カーソル位置に貼り付けました！');
+  showToast('Pasted at cursor!');
 });
 
 // TTS Speech
@@ -445,11 +447,11 @@ function speakAloud(text) {
   utterance.pitch = 1.2; // Sweet, cute pitch
   utterance.onstart = () => {
     flameState = 'speaking';
-    statusLabel.textContent = '人魂がお話し中... 🌸';
+    statusLabel.textContent = 'Hitodama speaking... 🌸';
   };
   utterance.onend = () => {
     flameState = 'idle';
-    statusLabel.textContent = 'さくら · Awake · Ctrl+Space';
+    statusLabel.textContent = 'Awake · Sakura · Ctrl+Space';
   };
   window.speechSynthesis.speak(utterance);
 }
@@ -461,7 +463,7 @@ ttsSpeakBtn.addEventListener('click', () => {
 copyClipboardBtn.addEventListener('click', () => {
   if (!lastAiResponse) return;
   navigator.clipboard.writeText(lastAiResponse);
-  showToast('クリップボードにコピーしました 📋');
+  showToast('Copied to clipboard 📋');
 });
 
 // 8. Voice Dictation (Ctrl+Space or Quick Mic)
@@ -472,12 +474,12 @@ function startVoiceDictation() {
     const recognition = new SpeechRecognition();
     recognition.continuous = false;
     recognition.interimResults = true;
-    recognition.lang = 'ja-JP,en-US';
+    recognition.lang = 'en-US';
 
     recognition.onstart = () => {
       isListening = true;
       flameState = 'listening';
-      statusLabel.textContent = '聞き取り中... お話しください 🌸';
+      statusLabel.textContent = 'Listening... Speak now 🌸';
       quickMicBtn.style.color = '#ff70a6';
     };
 
@@ -492,7 +494,7 @@ function startVoiceDictation() {
     recognition.onend = () => {
       isListening = false;
       flameState = 'idle';
-      statusLabel.textContent = 'さくら · Awake · Ctrl+Space';
+      statusLabel.textContent = 'Awake · Sakura · Ctrl+Space';
       quickMicBtn.style.color = '';
       if (aiInput.value.trim()) {
         if (!isExpanded) setExpanded(true);
@@ -500,10 +502,10 @@ function startVoiceDictation() {
       }
     };
 
-    recognition.onerror = (e) => {
+    recognition.onerror = () => {
       isListening = false;
       flameState = 'idle';
-      statusLabel.textContent = '音声認識エラー';
+      statusLabel.textContent = 'Speech error';
       quickMicBtn.style.color = '';
     };
 
@@ -511,7 +513,7 @@ function startVoiceDictation() {
   } else {
     setExpanded(true);
     aiInput.focus();
-    showToast('文字を入力するかAIを設定してください 🌸');
+    showToast('Type a query or configure speech engine 🌸');
   }
 }
 
@@ -529,13 +531,13 @@ window.hitodama?.onDictationHotkey(() => {
   }
 });
 
-// 9. Interactive Tasks (本日の目標)
-let tasks = JSON.parse(localStorage.getItem('hitodama_sakura_tasks') || '[]');
+// 9. Interactive Tasks
+let tasks = JSON.parse(localStorage.getItem('hitodama_tasks_en') || '[]');
 if (tasks.length === 0) {
   tasks = [
-    { text: '🌸 人魂のさくらテーマを体験する', done: true },
-    { text: '🖼️ お気に入りの壁紙をデスクトップに設定', done: true },
-    { text: '🎙️ Ctrl + Space で音声入力を試す', done: false }
+    { text: '🌸 Explore the Sakura Pink theme', done: true },
+    { text: '🖼️ Apply your favorite wallpaper to desktop', done: true },
+    { text: '🎙️ Hold Ctrl + Space for voice dictation', done: false }
   ];
 }
 
@@ -569,7 +571,7 @@ function renderTasks() {
     const delBtn = document.createElement('button');
     delBtn.className = 'todo-delete-btn';
     delBtn.textContent = '×';
-    delBtn.title = '削除';
+    delBtn.title = 'Delete task';
     delBtn.addEventListener('click', () => {
       tasks.splice(idx, 1);
       saveTasks();
@@ -584,7 +586,7 @@ function renderTasks() {
 }
 
 function saveTasks() {
-  localStorage.setItem('hitodama_sakura_tasks', JSON.stringify(tasks));
+  localStorage.setItem('hitodama_tasks_en', JSON.stringify(tasks));
   renderTasks();
 }
 
@@ -608,11 +610,10 @@ closeBtn.addEventListener('click', () => {
   window.hitodama?.closeApp();
 });
 
-// 10. Sakura Hitodama Living Flame & Drifting Petals Canvas Shader
+// 10. Sakura Hitodama Living Flame & Orbiting Petals Canvas Shader
 const ctx = soulCanvas.getContext('2d');
 let frame = 0;
 
-// Sakura Petal Particles
 const petals = Array.from({ length: 5 }, () => ({
   x: Math.random() * 36,
   y: Math.random() * 36,

@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="ja">
+<html lang="en">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -13,9 +13,9 @@
       
       <!-- Collapsed Bar / Island Header -->
       <div class="island-header" id="island-header">
-        <div class="soul-container" id="soul-avatar-trigger" title="魂の切替 · Switch Soul Orb Mode">
+        <div class="soul-container" id="soul-avatar-trigger" title="Switch Soul Avatar Mode">
           <canvas id="soul-canvas" width="36" height="36"></canvas>
-          <img id="soul-img" src="assets/soul-avatar.png" alt="人魂" class="soul-img hidden">
+          <img id="soul-img" src="assets/soul-avatar.png" alt="Hitodama" class="soul-img hidden">
         </div>
 
         <div class="island-info">
@@ -24,12 +24,12 @@
             <span class="kanji-badge">人魂</span>
             <span class="pulse-indicator"></span>
           </div>
-          <span class="island-subtitle" id="status-label">さくら · Awake · Ctrl+Space</span>
+          <span class="island-subtitle" id="status-label">Awake · Sakura · Ctrl+Space</span>
         </div>
 
         <!-- Quick Island Actions -->
         <div class="island-actions">
-          <button id="quick-mic-btn" class="icon-btn" title="音声入力 · Voice Dictation (Ctrl+Space)">
+          <button id="quick-mic-btn" class="icon-btn" title="Voice Dictation (Ctrl+Space)">
             <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.3" stroke-linecap="round" stroke-linejoin="round">
               <path d="M12 2a3 3 0 0 0-3 3v7a3 3 0 0 0 6 0V5a3 3 0 0 0-3-3z"></path>
               <path d="M19 10v2a7 7 0 0 1-14 0v-2"></path>
@@ -37,7 +37,7 @@
             </svg>
           </button>
           
-          <button id="toggle-expand-btn" class="icon-btn" title="コントロールセンター · Control Centre">
+          <button id="toggle-expand-btn" class="icon-btn" title="Toggle Control Centre">
             <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.3" stroke-linecap="round" stroke-linejoin="round">
               <polyline points="6 9 12 15 18 9"></polyline>
             </svg>
@@ -45,61 +45,61 @@
         </div>
       </div>
 
-      <!-- Expanded Control Centre (コントロールセンター) -->
+      <!-- Expanded Control Centre -->
       <div id="control-centre" class="control-centre hidden">
         
         <!-- Header Tagline -->
         <div class="cc-header-tagline">
-          <span class="tagline-jp">🌸 魂の宿るデスクトップ · A soul for your Windows</span>
+          <span class="tagline-jp">🌸 A soul for your Windows · Hitodama 人魂</span>
         </div>
 
         <!-- Tab Navigation -->
         <div class="cc-tabs">
-          <button class="cc-tab active" data-tab="controls">🌸 コントロール</button>
-          <button class="cc-tab" data-tab="wallpapers">🖼️ 壁紙</button>
-          <button class="cc-tab" data-tab="ai">💬 音声・AI</button>
-          <button class="cc-tab" data-tab="slots">✨ スロット</button>
-          <button class="cc-tab" data-tab="today">📝 目標</button>
-          <button class="cc-tab" data-tab="stats">📊 状態</button>
+          <button class="cc-tab active" data-tab="controls">🌸 Controls</button>
+          <button class="cc-tab" data-tab="wallpapers">🖼️ Wallpapers</button>
+          <button class="cc-tab" data-tab="ai">💬 AI & Voice</button>
+          <button class="cc-tab" data-tab="slots">✨ Soul Slots</button>
+          <button class="cc-tab" data-tab="today">📝 Tasks</button>
+          <button class="cc-tab" data-tab="stats">📊 Stats</button>
         </div>
 
         <div class="cc-content">
-          <!-- 1. Controls Panel (コントロール) -->
+          <!-- 1. Controls Panel -->
           <div id="tab-controls" class="tab-panel active">
             <div class="tiles-grid">
               <!-- Wi-Fi Tile -->
-              <div class="tile" id="wifi-tile" title="ネットワーク設定を開く">
+              <div class="tile" id="wifi-tile" title="Click to open Windows Network Settings">
                 <span class="tile-icon">📶</span>
                 <div class="tile-text">
-                  <span class="tile-name" id="wifi-ssid">接続中...</span>
+                  <span class="tile-name" id="wifi-ssid">Connecting...</span>
                   <span class="tile-status" id="wifi-signal">--</span>
                 </div>
               </div>
 
               <!-- Dark Mode Tile -->
-              <div class="tile" id="darkmode-tile" title="Windowsのダーク/ライトモードを切替">
+              <div class="tile" id="darkmode-tile" title="Toggle Windows Dark / Light Theme">
                 <span class="tile-icon" id="darkmode-icon">🌙</span>
                 <div class="tile-text">
-                  <span class="tile-name">テーマ切替</span>
-                  <span class="tile-status" id="darkmode-status">確認中...</span>
+                  <span class="tile-name">Theme</span>
+                  <span class="tile-status" id="darkmode-status">Checking...</span>
                 </div>
               </div>
 
               <!-- Sound / Mute Tile -->
-              <div class="tile" id="mute-tile" title="消音切替">
+              <div class="tile" id="mute-tile" title="Toggle System Mute">
                 <span class="tile-icon" id="mute-icon">🔊</span>
                 <div class="tile-text">
-                  <span class="tile-name">オーディオ</span>
-                  <span class="tile-status" id="mute-status">再生中</span>
+                  <span class="tile-name">Audio</span>
+                  <span class="tile-status" id="mute-status">Active</span>
                 </div>
               </div>
 
               <!-- Quick Wallpaper Tile -->
-              <div class="tile active-sakura" id="wallpaper-tile" title="さくら壁紙を即座に適用">
+              <div class="tile active-sakura" id="wallpaper-tile" title="Apply Sakura Wallpaper to Desktop">
                 <span class="tile-icon">🌸</span>
                 <div class="tile-text">
-                  <span class="tile-name">さくら壁紙</span>
-                  <span class="tile-status">クリックで適用</span>
+                  <span class="tile-name">Sakura Theme</span>
+                  <span class="tile-status">Click to apply</span>
                 </div>
               </div>
             </div>
@@ -112,22 +112,22 @@
             </div>
           </div>
 
-          <!-- 2. Wallpapers Gallery Panel (壁紙ギャラリー) -->
+          <!-- 2. Wallpapers Gallery Panel -->
           <div id="tab-wallpapers" class="tab-panel">
             <div class="section-title">
-              <span>🌸 生成された壁紙コレクション (Arena AI)</span>
+              <span>🌸 Generated Wallpaper Collection (Arena AI)</span>
             </div>
             <div class="wallpapers-grid">
               
-              <!-- Card 1: Sakura Shrine -->
+              <!-- Card 1: Sakura Room -->
               <div class="wp-card" data-wp="wallpaper-sakura.png">
                 <img src="assets/wallpaper-sakura.png" alt="Sakura Room" class="wp-preview">
                 <div class="wp-card-body">
                   <div class="wp-titles">
-                    <span class="wp-name">さくらルーム (Sakura Lofi)</span>
-                    <span class="wp-sub">柔らかなピンクの光と桜舞う和室</span>
+                    <span class="wp-name">Sakura Room (Lofi)</span>
+                    <span class="wp-sub">Soft pastel pink light & drifting cherry blossoms</span>
                   </div>
-                  <button class="wp-apply-btn" data-file="wallpaper-sakura.png">壁紙に設定 🌸</button>
+                  <button class="wp-apply-btn" data-file="wallpaper-sakura.png">Set Wallpaper 🌸</button>
                 </div>
               </div>
 
@@ -136,10 +136,10 @@
                 <img src="assets/wallpaper-sakura-garden.png" alt="Sakura Garden" class="wp-preview">
                 <div class="wp-card-body">
                   <div class="wp-titles">
-                    <span class="wp-name">桜庭園 (Sakura Garden)</span>
-                    <span class="wp-sub">満開の桜と鯉の池、木造の橋と淡い雲</span>
+                    <span class="wp-name">Sakura Garden</span>
+                    <span class="wp-sub">Blossom trees, koi pond, wooden bridge & clouds</span>
                   </div>
-                  <button class="wp-apply-btn" data-file="wallpaper-sakura-garden.png">壁紙に設定 🌸</button>
+                  <button class="wp-apply-btn" data-file="wallpaper-sakura-garden.png">Set Wallpaper 🌸</button>
                 </div>
               </div>
 
@@ -148,10 +148,10 @@
                 <img src="assets/wallpaper-pink-tokyo.png" alt="Pastel Tokyo" class="wp-preview">
                 <div class="wp-card-body">
                   <div class="wp-titles">
-                    <span class="wp-name">ピンク東京 (Pastel Tokyo)</span>
-                    <span class="wp-sub">鳥居とネオンが煌めく桜の街並み</span>
+                    <span class="wp-name">Pastel Tokyo</span>
+                    <span class="wp-sub">Torii shrine gate & neon glowing night street</span>
                   </div>
-                  <button class="wp-apply-btn" data-file="wallpaper-pink-tokyo.png">壁紙に設定 🌸</button>
+                  <button class="wp-apply-btn" data-file="wallpaper-pink-tokyo.png">Set Wallpaper 🌸</button>
                 </div>
               </div>
 
@@ -160,65 +160,65 @@
                 <img src="assets/wallpaper-lofi.png" alt="Cyberpunk Lofi" class="wp-preview">
                 <div class="wp-card-body">
                   <div class="wp-titles">
-                    <span class="wp-name">夜桜サイバー (Night Cyber)</span>
-                    <span class="wp-sub">ネオンパープルと深い夜の反射</span>
+                    <span class="wp-name">Night Cyber Lofi</span>
+                    <span class="wp-sub">Moody neon purple & deep city reflections</span>
                   </div>
-                  <button class="wp-apply-btn" data-file="wallpaper-lofi.png">壁紙に設定 🌙</button>
+                  <button class="wp-apply-btn" data-file="wallpaper-lofi.png">Set Wallpaper 🌙</button>
                 </div>
               </div>
 
             </div>
           </div>
 
-          <!-- 3. AI & Voice Panel (対話・音声) -->
+          <!-- 3. AI & Voice Panel -->
           <div id="tab-ai" class="tab-panel">
             <div class="ai-box">
               <div class="ai-input-wrap">
-                <input type="text" id="ai-input" placeholder="人魂に質問 (例: 'クリップボードを要約して' または '今日の予定は？')..." class="text-input">
-                <button id="ai-send-btn" class="send-btn" title="送信">🌸 送信</button>
+                <input type="text" id="ai-input" placeholder="Ask Hitodama (e.g. 'Summarize clipboard' or 'Draft a quick reply')..." class="text-input">
+                <button id="ai-send-btn" class="send-btn" title="Send Query">🌸 Send</button>
               </div>
 
               <!-- Response Box -->
               <div class="ai-response-area" id="ai-response-area">
-                <p class="placeholder-msg">「いつでも話しかけてね。Ctrl + Space でいつでもお話しできます。」(´｡• ᵕ •｡`)</p>
+                <p class="placeholder-msg">"I'm always here to help! Hold Ctrl + Space anytime to talk." (´｡• ᵕ •｡`)</p>
               </div>
 
               <!-- Action Bar for Response -->
               <div class="ai-actions-bar">
-                <button id="paste-cursor-btn" class="action-chip" title="現在のカーソル位置にAIの回答を直接入力">
-                  📋 カーソル位置に貼付
+                <button id="paste-cursor-btn" class="action-chip" title="Type AI response directly into your active window">
+                  📋 Paste at Cursor
                 </button>
-                <button id="tts-speak-btn" class="action-chip" title="音声で読み上げ">
-                  🗣️ 読み上げ
+                <button id="tts-speak-btn" class="action-chip" title="Read response aloud">
+                  🗣️ Speak Aloud
                 </button>
-                <button id="copy-clipboard-btn" class="action-chip" title="テキストをコピー">
-                  📄 コピー
+                <button id="copy-clipboard-btn" class="action-chip" title="Copy response to clipboard">
+                  📄 Copy Text
                 </button>
               </div>
 
               <!-- Endpoint Settings Accordion -->
               <div class="endpoint-config">
-                <div class="config-title">LLM 接続設定 (Ollama / Gemini / Groq / OpenRouter)</div>
+                <div class="config-title">LLM Endpoint Settings (Ollama / Gemini / Groq / OpenRouter)</div>
                 <div class="config-row">
                   <label for="ai-endpoint">API URL:</label>
                   <input type="text" id="ai-endpoint" value="http://localhost:11434/v1" class="mini-input">
                 </div>
                 <div class="config-row">
-                  <label for="ai-model">モデル:</label>
+                  <label for="ai-model">Model:</label>
                   <input type="text" id="ai-model" value="llama3.2" class="mini-input">
                 </div>
                 <div class="config-row">
-                  <label for="ai-apikey">APIキー:</label>
-                  <input type="password" id="ai-apikey" placeholder="(ローカルAIの場合は空欄)" class="mini-input">
+                  <label for="ai-apikey">API Key:</label>
+                  <input type="password" id="ai-apikey" placeholder="(optional for local AI)" class="mini-input">
                 </div>
               </div>
             </div>
           </div>
 
-          <!-- 4. Shape Your Hitodama (5つのソウルスロット) -->
+          <!-- 4. Shape Your Hitodama (5 Soul Slots) -->
           <div id="tab-slots" class="tab-panel">
             <div class="section-title">
-              <span>✨ 魂の5つのスロット (Hitodama Soul Slots)</span>
+              <span>✨ Shape Your Hitodama (5 Soul Slots)</span>
             </div>
             <div class="slots-container">
               
@@ -227,11 +227,11 @@
                 <div class="slot-header">
                   <span class="slot-icon">🌸</span>
                   <div class="slot-info">
-                    <span class="slot-title">人魂 (Soul)</span>
-                    <span class="slot-value">さくらの炎 (Sakura Flame)</span>
+                    <span class="slot-title">Soul (人魂)</span>
+                    <span class="slot-value">Sakura Living Flame</span>
                   </div>
                 </div>
-                <button id="toggle-soul-mode-btn" class="slot-action-btn">アバター切替</button>
+                <button id="toggle-soul-mode-btn" class="slot-action-btn">Switch Avatar</button>
               </div>
 
               <!-- Slot 2: Personality -->
@@ -239,8 +239,8 @@
                 <div class="slot-header">
                   <span class="slot-icon">🍡</span>
                   <div class="slot-info">
-                    <span class="slot-title">性格 (Personality)</span>
-                    <span class="slot-value" id="personality-val">Sweet Sakura (甘えん坊)</span>
+                    <span class="slot-title">Personality</span>
+                    <span class="slot-value" id="personality-val">Sweet Sakura 🌸</span>
                   </div>
                 </div>
                 <select id="personality-select" class="slot-select">
@@ -256,8 +256,8 @@
                 <div class="slot-header">
                   <span class="slot-icon">🎀</span>
                   <div class="slot-info">
-                    <span class="slot-title">音声 (Voice)</span>
-                    <span class="slot-value">Kokoro / WebTTS (Sakura Soft)</span>
+                    <span class="slot-title">Voice</span>
+                    <span class="slot-value">WebTTS / Kokoro (Sakura Pitch)</span>
                   </div>
                 </div>
                 <span class="slot-badge">Active</span>
@@ -268,8 +268,8 @@
                 <div class="slot-header">
                   <span class="slot-icon">⚡</span>
                   <div class="slot-info">
-                    <span class="slot-title">能力 (Abilities)</span>
-                    <span class="slot-value">Windows自動化 · 壁紙 · 音量 · 対話</span>
+                    <span class="slot-title">Abilities</span>
+                    <span class="slot-value">Windows Automation · Wallpaper · Volume · Chat</span>
                   </div>
                 </div>
                 <span class="slot-badge">5 Enabled</span>
@@ -280,8 +280,8 @@
                 <div class="slot-header">
                   <span class="slot-icon">💧</span>
                   <div class="slot-info">
-                    <span class="slot-title">音声入力 (Dictation)</span>
-                    <span class="slot-value">Liquid Drop (Ctrl+Space 長押し)</span>
+                    <span class="slot-title">Dictation</span>
+                    <span class="slot-value">Liquid Drop (Hold Ctrl + Space)</span>
                   </div>
                 </div>
                 <span class="slot-badge">Active</span>
@@ -290,43 +290,43 @@
             </div>
           </div>
 
-          <!-- 5. Tasks Panel (本日の目標) -->
+          <!-- 5. Tasks Panel -->
           <div id="tab-today" class="tab-panel">
             <div class="todo-card">
               <div class="todo-header">
-                <span>🌸 本日のやることリスト (Daily Objectives)</span>
+                <span>🌸 Daily Objectives</span>
                 <span class="todo-count" id="todo-count">0/0</span>
               </div>
               <div class="todo-list" id="todo-list">
                 <!-- Injected via JavaScript -->
               </div>
               <div class="todo-add-bar">
-                <input type="text" id="new-task-input" placeholder="新しい目標を追加..." class="text-input mini">
-                <button id="add-task-btn" class="add-btn">＋ 追加</button>
+                <input type="text" id="new-task-input" placeholder="Add a new objective..." class="text-input mini">
+                <button id="add-task-btn" class="add-btn">＋ Add</button>
               </div>
             </div>
           </div>
 
-          <!-- 6. Stats Panel (システム状態) -->
+          <!-- 6. Stats Panel -->
           <div id="tab-stats" class="tab-panel">
             <div class="stats-row">
               <div class="stat-box">
                 <span class="stat-num" id="stat-cpu">1.2%</span>
-                <span class="stat-label">CPU 使用率</span>
+                <span class="stat-label">CPU Usage</span>
               </div>
               <div class="stat-box">
                 <span class="stat-num" id="stat-ram">45%</span>
-                <span class="stat-label">システム RAM</span>
+                <span class="stat-label">System RAM</span>
               </div>
             </div>
             <div class="stats-row">
               <div class="stat-box">
                 <span class="stat-num" id="stat-app-ram">38 MB</span>
-                <span class="stat-label">人魂 メモリ (Heap)</span>
+                <span class="stat-label">Hitodama Heap</span>
               </div>
               <div class="stat-box">
                 <span class="stat-num" id="stat-free-ram">-- GB</span>
-                <span class="stat-label">空き RAM</span>
+                <span class="stat-label">Free RAM</span>
               </div>
             </div>
           </div>
@@ -334,12 +334,12 @@
         </div>
 
         <!-- Notification Toast -->
-        <div id="toast" class="toast hidden">🌸 さくら壁紙を適用しました！</div>
+        <div id="toast" class="toast hidden">🌸 Wallpaper applied successfully!</div>
 
         <!-- Footer -->
         <div class="cc-footer">
-          <span class="shortcut-hint">グローバル起動: <b>Ctrl + Space</b> で人魂を召喚</span>
-          <button id="close-app-btn" class="footer-btn">終了</button>
+          <span class="shortcut-hint">Global Wake: Hold <b>Ctrl + Space</b> to talk</span>
+          <button id="close-app-btn" class="footer-btn">Exit Hitodama</button>
         </div>
       </div>
     </div>
